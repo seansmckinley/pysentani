@@ -41,16 +41,19 @@ def pie_chart_boolean(col, df, dropna=True):
     '''
     vc = df[col].value_counts(normalize=True, dropna=dropna)
     yes = vc.get(1)
-    second = vc.get(0)
+    no = vc.get(0)
     if dropna != True:
         NaN = vc[0] - vc[1]
         labels = ['Yes', 'No', 'No Response']
         colors = ['green', 'red', 'lightcoral']
+        sizes = [int(yes*100),int(no*100),int(NaN*100)]
+        explode = (0.1, 0, 0)
     else:
         labels = ['Yes', 'No']
         colors = ['green', 'red']
-    explode = (0.1, 0,0)
-    p=plt.pie(sizes, explode, labels, colors, autopct='%1.1f%%', shadow=True, startangle=90)
+        sizes = [int(yes*100),int(no*100)]
+        explode = (0.1, 0)
+    p = plt.pie(sizes, explode, labels, colors, autopct='%1.1f%%', shadow=True, startangle=90)
     plt.axis('equal')
     return p
 def strip_chart(column):
